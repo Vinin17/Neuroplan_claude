@@ -6,12 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#7B68EE">
   <meta name="description" content="NeuroPlan: planejador de rotina pensado para neurodivergentes.">
-  <title>Cuidados especiais · NeuroPlan</title>
+  <title>Nova tarefa · NeuroPlan</title>
 
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
-<body class="pagina-cuidados">
+<body class="pagina-nova-tarefa">
 
   <!-- Ícones (sprite SVG). Uso: <svg class="icone"><use href="#i-home"/></svg> -->
   <svg xmlns="http://www.w3.org/2000/svg" hidden>
@@ -40,71 +40,92 @@
 
     <main class="conteudo">
 
-      <section class="tela" id="tela-cuidados" aria-labelledby="cuidados-titulo">
+      <section class="tela" id="tela-nova-tarefa" aria-labelledby="nova-titulo">
 
-        <div class="titulo-tela">
-          <p class="titulo-tela__rotulo">Personalização</p>
-          <h1 class="titulo-tela__titulo titulo-tela__titulo--esquerda" id="cuidados-titulo">Cuidados especiais</h1>
+        <div class="titulo-tela titulo-tela--centro">
+          <p class="titulo-tela__rotulo" id="nova-rotulo">Adicionar</p>
+          <h1 class="titulo-tela__titulo" id="nova-titulo">Nova Tarefa</h1>
         </div>
 
-        <ul class="cuidados">
-          <li>
-            <label class="cuidado">
-              <span class="cuidado__texto">
-                <span class="cuidado__titulo">Previsibilidade</span>
-                <span class="cuidado__descricao">Receber avisos antecipados sobre os próximos eventos.</span>
-              </span>
-              <input type="checkbox" class="interruptor" role="switch" name="previsibilidade">
-            </label>
-          </li>
-          <li>
-            <label class="cuidado">
-              <span class="cuidado__texto">
-                <span class="cuidado__titulo">Pausas</span>
-                <span class="cuidado__descricao">Adiciona pausas a cada 45 minutos antes e durante as tarefas</span>
-              </span>
-              <input type="checkbox" class="interruptor" role="switch" name="pausas">
-            </label>
-          </li>
-          <li>
-            <label class="cuidado">
-              <span class="cuidado__texto">
-                <span class="cuidado__titulo">Modo Calmo</span>
-                <span class="cuidado__descricao">Reduz estímulos visuais</span>
-              </span>
-              <input type="checkbox" class="interruptor" role="switch" name="modo-calmo">
-            </label>
-          </li>
-          <li>
-            <label class="cuidado">
-              <span class="cuidado__texto">
-                <span class="cuidado__titulo">Sessões curtas</span>
-                <span class="cuidado__descricao">Divide uma tarefa grande em pequenas tarefas</span>
-              </span>
-              <input type="checkbox" class="interruptor" role="switch" name="sessoes-curtas">
-            </label>
-          </li>
-          <li>
-            <label class="cuidado">
-              <span class="cuidado__texto">
-                <span class="cuidado__titulo">Recuperação</span>
-                <span class="cuidado__descricao">Organiza as tarefas que ficaram pendentes</span>
-              </span>
-              <input type="checkbox" class="interruptor" role="switch" name="recuperacao">
-            </label>
-          </li>
-          <li>
-            <label class="cuidado">
-              <span class="cuidado__texto">
-                <span class="cuidado__titulo">Prioridade</span>
-                <span class="cuidado__descricao">Destaca tarefas mais importantes</span>
-              </span>
-              <input type="checkbox" class="interruptor" role="switch" name="prioridade">
-            </label>
-          </li>
-        </ul>
+        <form class="formulario" id="form-tarefa" novalidate>
 
-        <p class="cuidados__aviso">Mais modos em breve...</p>
+          <div class="campo">
+            <label class="campo__rotulo" for="tarefa-nome">Nome da tarefa</label>
+            <input class="campo__input" type="text" id="tarefa-nome" name="nome" placeholder="ex: Revisar Biologia" required>
+          </div>
+
+          <fieldset class="campo campo--grupo">
+            <legend class="campo__rotulo">Categoria</legend>
+            <div class="chips">
+              <label class="chip">
+                <input type="radio" name="categoria" value="aula" checked>
+                <span>Aula</span>
+              </label>
+              <label class="chip">
+                <input type="radio" name="categoria" value="afazeres">
+                <span>Afazeres</span>
+              </label>
+              <label class="chip">
+                <input type="radio" name="categoria" value="saude">
+                <span>Saúde</span>
+              </label>
+              <label class="chip">
+                <input type="radio" name="categoria" value="lazer">
+                <span>Lazer</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="horario">
+            <div class="horario__cabecalho">
+              <legend class="horario__titulo">
+                <svg class="icone icone--roxo" aria-hidden="true"><use href="#i-clock"/></svg>
+                Horário
+              </legend>
+              <!-- Toque abre o seletor de data do aparelho (o campo fica transparente por cima) -->
+              <label class="horario__data" for="tarefa-data">
+                <span class="visualmente-oculto">Data da tarefa:</span>
+                <span class="horario__data-texto" id="data-texto">Hoje</span>
+                <svg class="icone icone--roxo" aria-hidden="true"><use href="#i-calendar"/></svg>
+                <input type="date" class="horario__data-input" id="tarefa-data" name="data" required>
+              </label>
+            </div>
+
+            <div class="horario__linha">
+              <label class="visualmente-oculto" for="hora-inicio">Início</label>
+              <input class="horario__hora" type="time" id="hora-inicio" name="inicio" value="09:00">
+              <span class="horario__as">às</span>
+              <label class="visualmente-oculto" for="hora-fim">Fim</label>
+              <input class="horario__hora" type="time" id="hora-fim" name="fim" value="10:00">
+            </div>
+
+            <label class="horario__aviso">
+              <svg class="icone icone--mini" aria-hidden="true"><use href="#i-bell"/></svg>
+              <span>Avisar 10 minutos antes</span>
+              <input type="checkbox" name="aviso" class="visualmente-oculto" checked>
+            </label>
+          </fieldset>
+
+          <fieldset class="opcoes">
+            <legend class="visualmente-oculto">Opções da tarefa</legend>
+            <label class="opcao">
+              <input type="checkbox" name="repetir">
+              <span>Repetir toda semana</span>
+            </label>
+            <label class="opcao">
+              <input type="checkbox" name="importante">
+              <span>Marcar como importante</span>
+            </label>
+          </fieldset>
+
+          <div class="campo">
+            <label class="campo__rotulo" for="tarefa-descricao">Descrição</label>
+            <textarea class="campo__input campo__input--area" id="tarefa-descricao" name="descricao" rows="6" placeholder="Adicione detalhes que te ajudem a começar..."></textarea>
+          </div>
+
+          <button type="submit" class="botao botao--principal" id="btn-salvar">Salvar tarefa</button>
+          <button type="button" class="botao botao--perigo" id="btn-excluir" hidden>Excluir tarefa</button>
+        </form>
       </section>
 
     </main>
@@ -121,11 +142,11 @@
       </a>
 
       <!-- Botão central: abre "Nova tarefa" -->
-      <a href="nova-tarefa.html" class="menu__adicionar" aria-label="Adicionar nova tarefa">
+      <a href="nova-tarefa.html" class="menu__adicionar is-ativo" aria-current="page" aria-label="Adicionar nova tarefa">
         <svg class="icone" aria-hidden="true"><use href="#i-plus"/></svg>
       </a>
 
-      <a href="cuidados.html" class="menu__item is-ativo" aria-current="page">
+      <a href="cuidados.html" class="menu__item">
         <svg class="icone" aria-hidden="true"><use href="#i-heart"/></svg>
         <span>Cuidados</span>
       </a>

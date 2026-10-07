@@ -6,12 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#7B68EE">
   <meta name="description" content="NeuroPlan: planejador de rotina pensado para neurodivergentes.">
-  <title>Meu perfil · NeuroPlan</title>
+  <title>Hoje · NeuroPlan</title>
 
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
-<body class="pagina-usuario">
+<body class="pagina-hoje">
 
   <!-- Ícones (sprite SVG). Uso: <svg class="icone"><use href="#i-home"/></svg> -->
   <svg xmlns="http://www.w3.org/2000/svg" hidden>
@@ -40,59 +40,52 @@
 
     <main class="conteudo">
 
-      <section class="tela" id="tela-usuario" aria-labelledby="usuario-titulo">
+      <section class="tela" id="tela-hoje" aria-labelledby="hoje-titulo">
 
-        <div class="perfil">
-          <div class="avatar avatar--grande" aria-hidden="true">V</div>
-          <h1 class="perfil__nome" id="usuario-titulo">Vinícius</h1>
-          <button type="button" class="perfil__editar">
-            Editar perfil
-            <svg class="icone icone--mini" aria-hidden="true"><use href="#i-pencil"/></svg>
-          </button>
+        <div class="titulo-tela">
+          <p class="titulo-tela__rotulo">Hoje</p>
+          <h1 class="titulo-tela__titulo titulo-tela__titulo--esquerda" id="hoje-titulo">Segunda-feira, 1 de Janeiro</h1>
+          <p class="titulo-tela__apoio">Você tem 4 tarefas planejadas. Comece pela mais leve.</p>
         </div>
 
-        <!-- Campos do perfil (somente leitura até o usuário tocar em "Editar perfil") -->
-        <form class="perfil__form" id="form-perfil">
-          <div class="campo-perfil">
-            <label class="campo-perfil__rotulo" for="perfil-nome">Nome</label>
-            <input class="campo-perfil__input" type="text" id="perfil-nome" value="Vinícius Closs" readonly>
-          </div>
-          <div class="campo-perfil">
-            <label class="campo-perfil__rotulo" for="perfil-idade">Idade</label>
-            <input class="campo-perfil__input" type="text" id="perfil-idade" value="17 anos" readonly>
-          </div>
-          <div class="campo-perfil">
-            <label class="campo-perfil__rotulo" for="perfil-neuro">Neurodiversidade</label>
-            <input class="campo-perfil__input" type="text" id="perfil-neuro" value="TDAH" readonly>
-          </div>
-          <div class="campo-perfil">
-            <label class="campo-perfil__rotulo" for="perfil-objetivos">Objetivos</label>
-            <textarea class="campo-perfil__input campo-perfil__input--area" id="perfil-objetivos" rows="2" readonly>Melhorar o foco nos estudos e reduzir a ansiedade.</textarea>
-          </div>
-        </form>
+        <!-- Aviso da próxima tarefa (aparece quando "Previsibilidade" está ligada em Cuidados) -->
+        <p class="proxima" id="proxima" hidden></p>
 
-        <!-- Estatísticas -->
-        <ul class="estatisticas">
-          <li class="estatistica">
-            <span class="estatistica__numero" data-estatistica="sequencia">00</span>
-            <span class="estatistica__rotulo">Dias seguidos</span>
-          </li>
-          <li class="estatistica">
-            <span class="estatistica__numero" data-estatistica="feitas">00</span>
-            <span class="estatistica__rotulo">Tarefas feitas</span>
-          </li>
-          <li class="estatistica">
-            <span class="estatistica__numero" data-estatistica="metas">00</span>
-            <span class="estatistica__rotulo">Metas alcançadas</span>
-          </li>
-        </ul>
+        <!-- Tarefas do dia -->
+        <div class="bloco">
+          <div class="bloco__cabecalho">
+            <h2 class="bloco__titulo">Tarefas do dia</h2>
+            <a href="rotina.html" class="link-pequeno">ver todas</a>
+          </div>
+
+          <ul class="lista-tarefas" id="lista-hoje"></ul>
+          <p class="vazio" id="vazio-hoje" hidden>Nenhuma tarefa para hoje. Toque no + para planejar o dia.</p>
+        </div>
+
+        <!-- Tarefas pendentes dos últimos dias (aparece quando "Recuperação" está ligada em Cuidados) -->
+        <div class="bloco" id="bloco-recuperacao" hidden>
+          <div class="bloco__cabecalho">
+            <h2 class="bloco__titulo">Para recuperar</h2>
+          </div>
+          <ul class="lista-tarefas" id="lista-recuperacao"></ul>
+        </div>
+
+        <!-- Semana (cartões roláveis na horizontal) -->
+        <div class="bloco">
+          <div class="bloco__cabecalho">
+            <h2 class="bloco__titulo">Semana</h2>
+            <a href="rotina.html" class="link-pequeno">ver tudo</a>
+          </div>
+
+          <ul class="semana" id="semana" aria-label="Próximos 7 dias"></ul>
+        </div>
       </section>
 
     </main>
 
     <!-- Menu inferior (igual em todas as páginas) -->
     <nav class="menu" aria-label="Navegação principal">
-      <a href="hoje.html" class="menu__item">
+      <a href="hoje.html" class="menu__item is-ativo" aria-current="page">
         <svg class="icone" aria-hidden="true"><use href="#i-home"/></svg>
         <span>Hoje</span>
       </a>
@@ -110,7 +103,7 @@
         <svg class="icone" aria-hidden="true"><use href="#i-heart"/></svg>
         <span>Cuidados</span>
       </a>
-      <a href="usuario.html" class="menu__item is-ativo" aria-current="page">
+      <a href="usuario.html" class="menu__item">
         <svg class="icone" aria-hidden="true"><use href="#i-user"/></svg>
         <span>Usuário</span>
       </a>
